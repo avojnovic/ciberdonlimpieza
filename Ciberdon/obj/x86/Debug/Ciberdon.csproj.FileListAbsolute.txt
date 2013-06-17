@@ -1,0 +1,10 @@
+C:\Projects\Ciberdon\Ciberdon\bin\Debug\Ciberdon.exe.config
+C:\Projects\Ciberdon\Ciberdon\bin\Debug\Ciberdon.exe
+C:\Projects\Ciberdon\Ciberdon\bin\Debug\Ciberdon.pdb
+C:\Projects\Ciberdon\Ciberdon\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Projects\Ciberdon\Ciberdon\obj\x86\Debug\Ciberdon.Form1.resources
+C:\Projects\Ciberdon\Ciberdon\obj\x86\Debug\Ciberdon.Properties.Resources.resources
+C:\Projects\Ciberdon\Ciberdon\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Projects\Ciberdon\Ciberdon\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Projects\Ciberdon\Ciberdon\obj\x86\Debug\Ciberdon.exe
+C:\Projects\Ciberdon\Ciberdon\obj\x86\Debug\Ciberdon.pdb
