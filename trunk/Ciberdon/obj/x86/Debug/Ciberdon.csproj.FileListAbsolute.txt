@@ -20,3 +20,11 @@ C:\Projects\CiberdonLimpieza\Ciberdon\bin\Debug\CiberdonLimpieza.exe
 C:\Projects\CiberdonLimpieza\Ciberdon\bin\Debug\CiberdonLimpieza.pdb
 C:\Projects\CiberdonLimpieza\Ciberdon\obj\x86\Debug\CiberdonLimpieza.exe
 C:\Projects\CiberdonLimpieza\Ciberdon\obj\x86\Debug\CiberdonLimpieza.pdb
+D:\Proyectos\Ciberdon Limpieza\Ciberdon\bin\Debug\CiberdonLimpieza.exe.config
+D:\Proyectos\Ciberdon Limpieza\Ciberdon\obj\x86\Debug\CiberdonLimpieza.exe
+D:\Proyectos\Ciberdon Limpieza\Ciberdon\obj\x86\Debug\CiberdonLimpieza.pdb
+D:\Proyectos\Ciberdon Limpieza\Ciberdon\bin\Debug\CiberdonLimpieza.exe
+D:\Proyectos\Ciberdon Limpieza\Ciberdon\bin\Debug\CiberdonLimpieza.pdb
+D:\Proyectos\Ciberdon Limpieza\Ciberdon\obj\x86\Debug\Ciberdon.Form1.resources
+D:\Proyectos\Ciberdon Limpieza\Ciberdon\obj\x86\Debug\Ciberdon.Properties.Resources.resources
+D:\Proyectos\Ciberdon Limpieza\Ciberdon\obj\x86\Debug\Ciberdon.csproj.GenerateResource.Cache

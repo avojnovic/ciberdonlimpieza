@@ -125,6 +125,13 @@ namespace Ciberdon
 
              if (dr == System.Windows.Forms.DialogResult.OK)
              {
+
+                 BtnBorrar.Enabled = false;
+                 BtnEliminar.Enabled = false;
+                 btnFolderDialog.Enabled = false;
+                 BtnSaveFolder.Enabled = false;
+
+
                  lblMensajes.Text = "";
 
                  List<Folder> _obviar = CarpetaDAO.getObviar(Application.StartupPath).Values.ToList();
@@ -142,6 +149,14 @@ namespace Ciberdon
                      }
 
                  }
+
+                 MessageBox.Show("Se completo la limpieza de archivos", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                 BtnBorrar.Enabled = true;
+                 BtnEliminar.Enabled = true;
+                 btnFolderDialog.Enabled = true;
+                 BtnSaveFolder.Enabled = true;
+
              }
         }
 
