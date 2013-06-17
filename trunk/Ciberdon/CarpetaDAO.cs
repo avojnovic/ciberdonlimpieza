@@ -10,7 +10,7 @@ namespace Ciberdon
    public class CarpetaDAO
     {
 
-        public static Dictionary<int, Carpeta> get(string dbPath)
+        public static Dictionary<int, Folder> get(string dbPath)
         {
             string connection = Properties.Settings.Default.ConnectionString;
             connection = connection.Replace("PATH", dbPath);
@@ -22,15 +22,15 @@ namespace Ciberdon
             OleDbDataReader reader = cmd.ExecuteReader();
 
 
-            Dictionary<int, Carpeta> carpetas = new Dictionary<int, Carpeta>();
+            Dictionary<int, Folder> carpetas = new Dictionary<int, Folder>();
             while (reader.Read())
             {
-                Carpeta c = new Carpeta();
+                Folder c = new Folder();
                 
                 if (!reader.IsDBNull(0))
                     c.Id = reader.GetInt32(0);
                 if (!reader.IsDBNull(1))
-                    c.Path = reader.GetString(1);
+                    c.Carpeta = reader.GetString(1);
 
                 carpetas.Add(c.Id, c);
             }
@@ -43,7 +43,7 @@ namespace Ciberdon
 
 
 
-        public static Dictionary<int, Carpeta> getObviar(string dbPath)
+        public static Dictionary<int, Folder> getObviar(string dbPath)
         {
             string connection = Properties.Settings.Default.ConnectionString;
             connection = connection.Replace("PATH", dbPath);
@@ -55,15 +55,15 @@ namespace Ciberdon
             OleDbDataReader reader = cmd.ExecuteReader();
 
 
-            Dictionary<int, Carpeta> carpetas = new Dictionary<int, Carpeta>();
+            Dictionary<int, Folder> carpetas = new Dictionary<int, Folder>();
             while (reader.Read())
             {
-                Carpeta c = new Carpeta();
+                Folder c = new Folder();
 
                 if (!reader.IsDBNull(0))
                     c.Id = reader.GetInt32(0);
                 if (!reader.IsDBNull(1))
-                    c.Path = reader.GetString(1);
+                    c.Carpeta = reader.GetString(1);
 
                 carpetas.Add(c.Id, c);
             }
@@ -76,7 +76,7 @@ namespace Ciberdon
 
 
 
-        public static int insert(string dbPath, Carpeta c)
+        public static int insert(string dbPath, Folder c)
         {
             string strconnection = Properties.Settings.Default.ConnectionString;
             strconnection = strconnection.Replace("PATH", dbPath);
@@ -91,7 +91,7 @@ namespace Ciberdon
 
             cmd.CommandType = CommandType.Text;
 
-            cmd.Parameters.Add("@PATH", OleDbType.VarChar, 255).Value = c.Path;
+            cmd.Parameters.Add("@PATH", OleDbType.VarChar, 255).Value = c.Carpeta;
 
 
             cmd.Connection = connection;
@@ -114,7 +114,7 @@ namespace Ciberdon
             return ID;
         }
 
-        public static void update(string dbPath, Carpeta c)
+        public static void update(string dbPath, Folder c)
         {
             string strconnection = Properties.Settings.Default.ConnectionString;
             strconnection = strconnection.Replace("PATH", dbPath);
@@ -130,8 +130,43 @@ namespace Ciberdon
 
             cmd.CommandType = CommandType.Text;
 
-            cmd.Parameters.Add("@PATH", OleDbType.VarChar, 255).Value = c.Path;
+            cmd.Parameters.Add("@PATH", OleDbType.VarChar, 255).Value = c.Carpeta;
             cmd.Parameters.Add("@ID", OleDbType.Integer, 255).Value = c.Id;
+
+
+
+            cmd.Connection = connection;
+            connection.Open();
+            cmd.Transaction = connection.BeginTransaction();
+
+            int rows = cmd.ExecuteNonQuery();
+
+
+            cmd.Transaction.Commit();
+            connection.Dispose();
+            connection.Close();
+        }
+
+
+
+        public static void delete(string dbPath, int id)
+        {
+            string strconnection = Properties.Settings.Default.ConnectionString;
+            strconnection = strconnection.Replace("PATH", dbPath);
+
+
+            OleDbConnection connection = new OleDbConnection(strconnection);
+
+
+
+            OleDbCommand cmd = new OleDbCommand();
+
+            cmd.CommandText = @"DELETE FROM Carpetas WHERE ID=@ID";
+
+            cmd.CommandType = CommandType.Text;
+
+           
+            cmd.Parameters.Add("@ID", OleDbType.Integer, 255).Value = id;
 
 
 

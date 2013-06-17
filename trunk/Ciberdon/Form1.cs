@@ -12,7 +12,7 @@ namespace Ciberdon
 {
     public partial class Form1 : Form
     {
-        Dictionary<int, Carpeta> _carpetas = new Dictionary<int, Carpeta>();
+        Dictionary<int, Folder> _carpetas = new Dictionary<int, Folder>();
 
         public Form1()
         {
@@ -36,9 +36,37 @@ namespace Ciberdon
             }
         }
 
+
+        private void GrdViewFolders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtId.Text = GrdViewFolders.Rows[e.RowIndex].Cells[0].Value.ToString();
+            txtFolder.Text = GrdViewFolders.Rows[e.RowIndex].Cells[1].Value.ToString();
+        }
+
+        private void BtnBorrar_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("¿Esta seguro que desea borrar el registro?", "Confirmar", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+          if (dr == System.Windows.Forms.DialogResult.OK)
+          {
+              if (txtId.Text != "")
+              {
+                  int id = int.Parse(txtId.Text);
+
+
+
+                  CarpetaDAO.delete(Application.StartupPath, id);
+                  _carpetas.Remove(id);
+                  GrdViewFolders.DataSource = _carpetas.Values.ToList();
+                  Limpiar();
+
+              }
+          }
+        }
+
         private void BtnSaveFolder_Click(object sender, EventArgs e)
         {
-            Carpeta c = new Carpeta();
+            Folder c = new Folder();
             Boolean guardar = true;
             Boolean modificar = false;
 
@@ -57,7 +85,7 @@ namespace Ciberdon
             else
             {
                 txtFolder.BackColor = Color.FromName("Control");
-                c.Path = txtFolder.Text.Trim();
+                c.Carpeta = txtFolder.Text.Trim();
             }
 
 
@@ -92,16 +120,32 @@ namespace Ciberdon
 
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
-            List<Carpeta> _obviar = CarpetaDAO.getObviar(Application.StartupPath).Values.ToList();
+
+             DialogResult dr= MessageBox.Show("Asegurese de que todas la computadoras seleccionadas no esten utilizandose. ¿Desea continuar con la Limpieza de archivos?", "Confirmar", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+             if (dr == System.Windows.Forms.DialogResult.OK)
+             {
+                 lblMensajes.Text = "";
+
+                 List<Folder> _obviar = CarpetaDAO.getObviar(Application.StartupPath).Values.ToList();
 
 
-            foreach (Carpeta c in _carpetas.Values.ToList())
-            {
-                deleteDirectories(_obviar, c.Path);
-            }
+                 foreach (Folder c in _carpetas.Values.ToList())
+                 {
+                     try
+                     {
+                         deleteDirectories(_obviar, c.Carpeta);
+                     }
+                     catch (Exception ex)
+                     {
+                         lblMensajes.Text = lblMensajes.Text + " - " + ex.Message;
+                     }
+
+                 }
+             }
         }
 
-        private static void deleteDirectories(List<Carpeta> _obviar, string path)
+        private static void deleteDirectories(List<Folder> _obviar, string path)
         {
             string[] directories = Directory.GetDirectories(path);
 
@@ -114,8 +158,8 @@ namespace Ciberdon
                 
 
                 var obviar = from o in _obviar
-                             where o.Path.Trim().ToUpper() == di.Name.Trim().ToUpper()
-                             select o.Path;
+                             where o.Carpeta.Trim().ToUpper() == di.Name.Trim().ToUpper()
+                             select o.Carpeta;
 
                 if (obviar.Count() == 0)
                 {
@@ -151,11 +195,7 @@ namespace Ciberdon
             }
         }
 
-        private void GrdViewFolders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            txtId.Text = GrdViewFolders.Rows[e.RowIndex].Cells[0].Value.ToString();
-            txtFolder.Text = GrdViewFolders.Rows[e.RowIndex].Cells[1].Value.ToString();
-        }
+
 
         
     }
