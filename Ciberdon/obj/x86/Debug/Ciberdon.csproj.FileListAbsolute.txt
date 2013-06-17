@@ -8,3 +8,15 @@ C:\Projects\Ciberdon\Ciberdon\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Projects\Ciberdon\Ciberdon\obj\x86\Debug\GenerateResource.write.1.tlog
 C:\Projects\Ciberdon\Ciberdon\obj\x86\Debug\Ciberdon.exe
 C:\Projects\Ciberdon\Ciberdon\obj\x86\Debug\Ciberdon.pdb
+C:\Projects\CiberdonLimpieza\Ciberdon\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Projects\CiberdonLimpieza\Ciberdon\obj\x86\Debug\Ciberdon.Form1.resources
+C:\Projects\CiberdonLimpieza\Ciberdon\obj\x86\Debug\Ciberdon.Properties.Resources.resources
+C:\Projects\CiberdonLimpieza\Ciberdon\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Projects\CiberdonLimpieza\Ciberdon\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Projects\CiberdonLimpieza\Ciberdon\obj\x86\Debug\ResGen.read.1.tlog
+C:\Projects\CiberdonLimpieza\Ciberdon\obj\x86\Debug\ResGen.write.1.tlog
+C:\Projects\CiberdonLimpieza\Ciberdon\bin\Debug\CiberdonLimpieza.exe.config
+C:\Projects\CiberdonLimpieza\Ciberdon\bin\Debug\CiberdonLimpieza.exe
+C:\Projects\CiberdonLimpieza\Ciberdon\bin\Debug\CiberdonLimpieza.pdb
+C:\Projects\CiberdonLimpieza\Ciberdon\obj\x86\Debug\CiberdonLimpieza.exe
+C:\Projects\CiberdonLimpieza\Ciberdon\obj\x86\Debug\CiberdonLimpieza.pdb

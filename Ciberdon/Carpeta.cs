@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Ciberdon
 {
-   public class Carpeta
+   public class Folder
     {
         private int _id;
 
@@ -17,12 +17,12 @@ namespace Ciberdon
 
 
 
-        private string _path;
+        private string _carpeta;
 
-        public string Path
+        public string Carpeta
         {
-            get { return _path; }
-            set { _path = value; }
+            get { return _carpeta; }
+            set { _carpeta = value; }
         }
 
     }
