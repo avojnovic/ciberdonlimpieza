@@ -40,6 +40,7 @@
             this.BtnBorrar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.LblProgreso = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GrdViewFolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -65,6 +66,7 @@
             this.tableLayoutPanel1.Controls.Add(this.BtnBorrar, 5, 1);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 5, 0);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox2, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.LblProgreso, 4, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -83,7 +85,6 @@
             this.txtFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFolder.Location = new System.Drawing.Point(65, 86);
             this.txtFolder.Name = "txtFolder";
-            this.txtFolder.ReadOnly = true;
             this.txtFolder.Size = new System.Drawing.Size(451, 20);
             this.txtFolder.TabIndex = 1;
             // 
@@ -150,6 +151,7 @@
             // lblMensajes
             // 
             this.lblMensajes.AutoSize = true;
+            this.lblMensajes.ForeColor = System.Drawing.Color.Red;
             this.lblMensajes.Location = new System.Drawing.Point(65, 435);
             this.lblMensajes.Name = "lblMensajes";
             this.lblMensajes.Size = new System.Drawing.Size(0, 13);
@@ -187,6 +189,19 @@
             this.pictureBox2.TabIndex = 9;
             this.pictureBox2.TabStop = false;
             // 
+            // LblProgreso
+            // 
+            this.LblProgreso.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.LblProgreso.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.LblProgreso, 2);
+            this.LblProgreso.Font = new System.Drawing.Font("Broadway", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblProgreso.ForeColor = System.Drawing.Color.Red;
+            this.LblProgreso.Location = new System.Drawing.Point(571, 434);
+            this.LblProgreso.Name = "LblProgreso";
+            this.tableLayoutPanel1.SetRowSpan(this.LblProgreso, 2);
+            this.LblProgreso.Size = new System.Drawing.Size(0, 21);
+            this.LblProgreso.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,6 +234,7 @@
         private System.Windows.Forms.Label lblMensajes;
         private System.Windows.Forms.Button BtnBorrar;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label LblProgreso;
     }
 }
 
