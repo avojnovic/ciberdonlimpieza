@@ -120,6 +120,8 @@ namespace Ciberdon
 
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
+            
+            LblProgreso.Text = "";
 
              DialogResult dr= MessageBox.Show("Asegurese de que todas la computadoras seleccionadas no esten utilizandose. ¿Desea continuar con la Limpieza de archivos?", "Confirmar", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
@@ -136,9 +138,13 @@ namespace Ciberdon
 
                  List<Folder> _obviar = CarpetaDAO.getObviar(Application.StartupPath).Values.ToList();
 
-
+                 int cant = 0;
                  foreach (Folder c in _carpetas.Values.ToList())
                  {
+                     Application.DoEvents();
+                     
+                     LblProgreso.Text =cant.ToString() + " de " + _carpetas.Values.ToList().Count.ToString();
+
                      try
                      {
                          deleteDirectories(_obviar, c.Carpeta);
@@ -147,6 +153,9 @@ namespace Ciberdon
                      {
                          lblMensajes.Text = lblMensajes.Text + " - " + ex.Message;
                      }
+
+                     cant++;
+                     LblProgreso.Text = cant.ToString() + " de " + _carpetas.Values.ToList().Count.ToString();
 
                  }
 
