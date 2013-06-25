@@ -22,8 +22,8 @@ namespace Ciberdon
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            _carpetas =CarpetaDAO.get(Application.StartupPath);
-            GrdViewFolders.DataSource = _carpetas.Values.ToList();
+            _carpetas = CarpetaDAO.get(Application.StartupPath);
+            cargarGrilla();
         }
 
         private void btnFolderDialog_Click(object sender, EventArgs e)
@@ -39,29 +39,57 @@ namespace Ciberdon
 
         private void GrdViewFolders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtId.Text = GrdViewFolders.Rows[e.RowIndex].Cells[0].Value.ToString();
-            txtFolder.Text = GrdViewFolders.Rows[e.RowIndex].Cells[1].Value.ToString();
+            Limpiar();
+
+
+            if (GrdViewFolders.Rows[e.RowIndex].Cells[0].Value != null)
+                txtId.Text = GrdViewFolders.Rows[e.RowIndex].Cells[0].Value.ToString();
+            else
+                txtId.Text = "";
+
+            if (GrdViewFolders.Rows[e.RowIndex].Cells[1].Value != null)
+               TxtNombre.Text = GrdViewFolders.Rows[e.RowIndex].Cells[1].Value.ToString();
+            else
+                TxtNombre.Text = "";
+
+            if (GrdViewFolders.Rows[e.RowIndex].Cells[3].Value!= null)
+                txtFolder.Text = GrdViewFolders.Rows[e.RowIndex].Cells[3].Value.ToString();
+            else
+                txtFolder.Text = "";
         }
 
         private void BtnBorrar_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("¿Esta seguro que desea borrar el registro?", "Confirmar", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            if (txtId.Text != "")
+            {
+                DialogResult dr = MessageBox.Show("¿Esta seguro que desea borrar el registro?", "Confirmar", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
-          if (dr == System.Windows.Forms.DialogResult.OK)
-          {
-              if (txtId.Text != "")
-              {
-                  int id = int.Parse(txtId.Text);
+                if (dr == System.Windows.Forms.DialogResult.OK)
+                {
+                    int id = int.Parse(txtId.Text);
+
+                    CarpetaDAO.delete(Application.StartupPath, id);
+                    _carpetas.Remove(id);
+                    cargarGrilla();
+                    Limpiar();
 
 
+                }
+            }
+        }
 
-                  CarpetaDAO.delete(Application.StartupPath, id);
-                  _carpetas.Remove(id);
-                  GrdViewFolders.DataSource = _carpetas.Values.ToList();
-                  Limpiar();
+        private void cargarGrilla()
+        {
+            GrdViewFolders.AutoGenerateColumns = false;
 
-              }
-          }
+            GrdViewFolders.Columns["ID"].DataPropertyName = "ID";
+            GrdViewFolders.Columns["Nombre"].DataPropertyName = "Nombre";
+            GrdViewFolders.Columns["Habilitada"].DataPropertyName = "Habilitada";
+            GrdViewFolders.Columns["Habilitada"].ReadOnly = false;
+
+            GrdViewFolders.Columns["Carpeta"].DataPropertyName = "Carpeta";
+
+            GrdViewFolders.DataSource = _carpetas.Values.ToList();
         }
 
         private void BtnSaveFolder_Click(object sender, EventArgs e)
@@ -84,8 +112,19 @@ namespace Ciberdon
             }
             else
             {
-                txtFolder.BackColor = Color.FromName("Control");
+                txtFolder.BackColor = Color.FromName("White");
                 c.Carpeta = txtFolder.Text.Trim();
+            }
+
+            if (TxtNombre.Text.Trim() == "")
+            {
+                TxtNombre.BackColor = Color.Red;
+                guardar = false;
+            }
+            else
+            {
+                TxtNombre.BackColor = Color.FromName("White");
+                c.Nombre = TxtNombre.Text.Trim();
             }
 
 
@@ -99,11 +138,12 @@ namespace Ciberdon
                 }
                 else
                 {
+                    c.Habilitada = true;
                     c.Id = CarpetaDAO.insert(Application.StartupPath, c);
                     _carpetas.Add(c.Id, c);
                 }
 
-                GrdViewFolders.DataSource = _carpetas.Values.ToList();
+                cargarGrilla();
                 Limpiar();
             }
         }
@@ -111,62 +151,70 @@ namespace Ciberdon
         private void Limpiar()
         {
             txtId.BackColor = Color.FromName("Control");
-            txtFolder.BackColor = Color.FromName("Control");
+            txtFolder.BackColor = Color.FromName("White");
+            TxtNombre.BackColor = Color.FromName("White");
+
             txtId.Text = "";
             txtFolder.Text = "";
+            TxtNombre.Text = "";
 
-            GrdViewFolders.DataSource = _carpetas.Values.ToList();
+           
         }
 
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
-            
+
             LblProgreso.Text = "";
 
-             DialogResult dr= MessageBox.Show("Asegurese de que todas la computadoras seleccionadas no esten utilizandose. ¿Desea continuar con la Limpieza de archivos?", "Confirmar", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            DialogResult dr = MessageBox.Show("Asegurese de que todas la computadoras seleccionadas no esten utilizandose. ¿Desea continuar con la Limpieza de archivos?", "Confirmar", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
-             if (dr == System.Windows.Forms.DialogResult.OK)
-             {
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
 
-                 BtnBorrar.Enabled = false;
-                 BtnEliminar.Enabled = false;
-                 btnFolderDialog.Enabled = false;
-                 BtnSaveFolder.Enabled = false;
+                BtnBorrar.Enabled = false;
+                BtnEliminar.Enabled = false;
+                btnFolderDialog.Enabled = false;
+                BtnSaveFolder.Enabled = false;
 
 
-                 lblMensajes.Text = "";
+                lblMensajes.Text = "";
 
-                 List<Folder> _obviar = CarpetaDAO.getObviar(Application.StartupPath).Values.ToList();
+                List<Folder> _obviar = CarpetaDAO.getObviar(Application.StartupPath).Values.ToList();
 
-                 int cant = 0;
-                 foreach (Folder c in _carpetas.Values.ToList())
-                 {
-                     Application.DoEvents();
-                     
-                     LblProgreso.Text =cant.ToString() + " de " + _carpetas.Values.ToList().Count.ToString();
+                int cant = 0;
 
-                     try
-                     {
-                         deleteDirectories(_obviar, c.Carpeta);
-                     }
-                     catch (Exception ex)
-                     {
-                         lblMensajes.Text = lblMensajes.Text + " - " + ex.Message;
-                     }
+                var carp=from c in _carpetas.Values.ToList()
+                         where c.Habilitada==true
+                         select c;
 
-                     cant++;
-                     LblProgreso.Text = cant.ToString() + " de " + _carpetas.Values.ToList().Count.ToString();
+                foreach (Folder c in carp)
+                {
+                    Application.DoEvents();
 
-                 }
+                    LblProgreso.Text = cant.ToString() + " de " + carp.Count().ToString();
 
-                 MessageBox.Show("Se completo la limpieza de archivos", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    try
+                    {
+                        deleteDirectories(_obviar, c.Carpeta);
+                    }
+                    catch (Exception ex)
+                    {
+                        lblMensajes.Text = lblMensajes.Text + c.Nombre + " - " + ex.Message;
+                    }
 
-                 BtnBorrar.Enabled = true;
-                 BtnEliminar.Enabled = true;
-                 btnFolderDialog.Enabled = true;
-                 BtnSaveFolder.Enabled = true;
+                    cant++;
+                    LblProgreso.Text = cant.ToString() + " de " + carp.Count().ToString();
 
-             }
+                }
+
+                MessageBox.Show("Se completo la limpieza de archivos", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                BtnBorrar.Enabled = true;
+                BtnEliminar.Enabled = true;
+                btnFolderDialog.Enabled = true;
+                BtnSaveFolder.Enabled = true;
+
+            }
         }
 
         private static void deleteDirectories(List<Folder> _obviar, string path)
@@ -179,7 +227,7 @@ namespace Ciberdon
             {
 
                 DirectoryInfo di = new DirectoryInfo(directory);
-                
+
 
                 var obviar = from o in _obviar
                              where o.Carpeta.Trim().ToUpper() == di.Name.Trim().ToUpper()
@@ -219,8 +267,26 @@ namespace Ciberdon
             }
         }
 
+        private void GrdViewFolders_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex != -1)
+            {
+                int id=0;
+                if (GrdViewFolders.Rows[e.RowIndex].Cells[0].Value != null)
+                    id = int.Parse( GrdViewFolders.Rows[e.RowIndex].Cells[0].Value.ToString());
 
 
-        
+                if (GrdViewFolders.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                    _carpetas[id].Habilitada = bool.Parse(GrdViewFolders.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+
+
+                CarpetaDAO.update(Application.StartupPath, _carpetas[id]);
+            }
+
+        }
+
+
+
     }
 }
