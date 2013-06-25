@@ -30,7 +30,11 @@ namespace Ciberdon
                 if (!reader.IsDBNull(0))
                     c.Id = reader.GetInt32(0);
                 if (!reader.IsDBNull(1))
-                    c.Carpeta = reader.GetString(1);
+                    c.Nombre = reader.GetString(1);
+                if (!reader.IsDBNull(2))
+                    c.Habilitada = reader.GetBoolean(2);
+                if (!reader.IsDBNull(3))
+                    c.Carpeta = reader.GetString(3);
 
                 carpetas.Add(c.Id, c);
             }
@@ -86,11 +90,13 @@ namespace Ciberdon
             OleDbCommand cmd = new OleDbCommand();
 
 
-            cmd.CommandText = @"INSERT INTO Carpetas (PATH) 
-                                VALUES(@PATH)";
+            cmd.CommandText = @"INSERT INTO Carpetas (NAME,ENABLED,PATH) 
+                                VALUES(@NAME,@ENABLED,@PATH)";
 
             cmd.CommandType = CommandType.Text;
 
+            cmd.Parameters.Add("@NAME", OleDbType.VarChar, 255).Value = c.Nombre;
+            cmd.Parameters.Add("@ENABLED", OleDbType.Boolean, 1).Value = c.Habilitada;
             cmd.Parameters.Add("@PATH", OleDbType.VarChar, 255).Value = c.Carpeta;
 
 
@@ -126,10 +132,12 @@ namespace Ciberdon
 
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"UPDATE Carpetas SET PATH=@PATH WHERE ID=@ID";
+            cmd.CommandText = @"UPDATE Carpetas SET NAME=@NAME, ENABLED=@ENABLED, PATH=@PATH WHERE ID=@ID";
 
             cmd.CommandType = CommandType.Text;
 
+            cmd.Parameters.Add("@NAME", OleDbType.VarChar, 255).Value = c.Nombre;
+            cmd.Parameters.Add("@ENABLED", OleDbType.Boolean, 1).Value = c.Habilitada;
             cmd.Parameters.Add("@PATH", OleDbType.VarChar, 255).Value = c.Carpeta;
             cmd.Parameters.Add("@ID", OleDbType.Integer, 255).Value = c.Id;
 

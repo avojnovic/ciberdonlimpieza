@@ -15,7 +15,21 @@ namespace Ciberdon
             set { _id = value; }
         }
 
+        private string _Nombre;
 
+        public string Nombre
+        {
+            get { return _Nombre; }
+            set { _Nombre = value; }
+        }
+
+        private bool _habilitada;
+
+        public bool Habilitada
+        {
+            get { return _habilitada; }
+            set { _habilitada = value; }
+        }
 
         private string _carpeta;
 
