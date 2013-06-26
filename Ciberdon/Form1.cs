@@ -13,10 +13,11 @@ namespace Ciberdon
     public partial class Form1 : Form
     {
         Dictionary<int, Folder> _carpetas = new Dictionary<int, Folder>();
-
+        bool habilitar = true;
         public Form1()
         {
             InitializeComponent();
+            this.Activate();
         }
 
 
@@ -132,6 +133,7 @@ namespace Ciberdon
             {
                 if (modificar)
                 {
+                    c.Habilitada = _carpetas[c.Id].Habilitada;
                     CarpetaDAO.update(Application.StartupPath, c);
                     _carpetas[c.Id] = c;
 
@@ -284,6 +286,32 @@ namespace Ciberdon
                 CarpetaDAO.update(Application.StartupPath, _carpetas[id]);
             }
 
+        }
+
+        private void BtnHabilitar_Click(object sender, EventArgs e)
+        {
+            foreach (Folder c in _carpetas.Values.ToList())
+            {
+                c.Habilitada = habilitar;
+                CarpetaDAO.update(Application.StartupPath, c);
+
+            }
+
+
+
+            if (habilitar)
+            {
+                habilitar = false;
+                BtnHabilitar.Text = "Deshabilitar Todos";
+            }
+            else
+            {
+                habilitar = true;
+                BtnHabilitar.Text = "Habilitar Todos";
+            }
+
+
+            cargarGrilla();
         }
 
 

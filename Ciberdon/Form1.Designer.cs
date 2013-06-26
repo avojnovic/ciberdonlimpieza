@@ -46,6 +46,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.TxtNombre = new System.Windows.Forms.TextBox();
             this.lblMensajes = new System.Windows.Forms.TextBox();
+            this.BtnHabilitar = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GrdViewFolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -67,13 +68,14 @@
             this.tableLayoutPanel1.Controls.Add(this.BtnSaveFolder, 5, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtId, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.GrdViewFolders, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.BtnEliminar, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.BtnBorrar, 6, 1);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 6, 0);
             this.tableLayoutPanel1.Controls.Add(this.LblProgreso, 5, 3);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.TxtNombre, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblMensajes, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.BtnEliminar, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.BtnHabilitar, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -258,6 +260,18 @@
             this.lblMensajes.Size = new System.Drawing.Size(493, 108);
             this.lblMensajes.TabIndex = 11;
             // 
+            // BtnHabilitar
+            // 
+            this.BtnHabilitar.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.tableLayoutPanel1.SetColumnSpan(this.BtnHabilitar, 2);
+            this.BtnHabilitar.Location = new System.Drawing.Point(23, 340);
+            this.BtnHabilitar.Name = "BtnHabilitar";
+            this.BtnHabilitar.Size = new System.Drawing.Size(125, 23);
+            this.BtnHabilitar.TabIndex = 13;
+            this.BtnHabilitar.Text = "Habilitar Todos";
+            this.BtnHabilitar.UseVisualStyleBackColor = true;
+            this.BtnHabilitar.Click += new System.EventHandler(this.BtnHabilitar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -297,6 +311,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Habilitada;
         private System.Windows.Forms.DataGridViewTextBoxColumn Carpeta;
+        private System.Windows.Forms.Button BtnHabilitar;
     }
 }
 
